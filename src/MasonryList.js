@@ -83,7 +83,19 @@ export default class MasonryList extends React.PureComponent {
 		const newHeight = imgDimensions.height / divider;
 
 		return { width: newWidth, height: newHeight, gutter: gutterSize };
-	}
+  }
+  
+  addItems(images){
+    	this.resolveImages(
+      this.props.itemSource,
+      images,
+      this.props.layoutDimensions,
+      this.props.columns,
+      this.props.initialColToRender,
+      this.props.initialNumInColsToRender,
+      this.props.sorted
+    );
+  }
 
 	resolveImages(
 		itemSource,
@@ -305,6 +317,10 @@ export default class MasonryList extends React.PureComponent {
 	render() {
 		return (
 			<FlatList
+      removeClippedSubviews disableVirtualization enableEmptySection
+            shouldItemUpdate={(props, nextProps) => {
+              return props.item !== nextProps.item
+            }}
 				style={{
 					padding: (this.props.layoutDimensions.width / 100) * this.props.spacing / 2,
 					backgroundColor: this.props.backgroundColor
@@ -314,7 +330,6 @@ export default class MasonryList extends React.PureComponent {
 					flexDirection: "row",
 					width: "100%"
 				}}
-				removeClippedSubviews={true}
 				onEndReachedThreshold={this.props.onEndReachedThreshold}
 				{...this.props.masonryFlatListColProps}
 				onEndReached={this._onCallEndReach}

@@ -96,6 +96,10 @@ export default class Masonry extends React.PureComponent {
 			});
 		}
 	}
+    
+    addItems( items ) {
+        this.refs.masonryList.addItems(items);
+    }
 
     render() {
         return (
@@ -109,7 +113,7 @@ export default class Masonry extends React.PureComponent {
                     layoutDimensions={this.state.layoutDimensions}
                     containerWidth={this.props.containerWidth}
                     itemSource={this.props.itemSource}
-
+                    ref="masonryList"
                     images={this.props.images}
                     columns={this.props.columns}
                     spacing={this.props.spacing}
